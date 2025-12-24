@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<!-- saved from url=(0204)file:///C:/Users/valya/OneDrive/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B8%D0%B9%20%D1%81%D1%82%D0%BE%D0%BB/%D0%9F%D0%BB%D0%B0%D0%BD%20%D1%83%D1%87%D0%B5%D0%B1%D1%8B/OTUS-2025/deepseek_html_20251220_db30a7.html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курсовой проект OTUS: РобоРесторан</title>
+    <style>
+        :root {
+            --phase1: #3f51b5;
+            --phase2: #2196f3;
+            --phase3: #00bcd4;
+            --phase4: #4caf50;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .project-info {
+            background: #e1f5fe;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2196f3;
+        }
+        .project-info p {
+            margin: 6px 0;
+            font-size: 0.95em;
+        }
+        .project-info strong {
+            color: #2c3e50;
+        }
+        .period-box {
+            background: #e3f2fd;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-left: 5px solid #2196f3;
+        }
+        .summary-box {
+            background: #ede7f6;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .phases {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .phase {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .phase-header {
+            padding: 16px 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .phase-1 .phase-header { background: var(--phase1); }
+        .phase-2 .phase-header { background: var(--phase2); }
+        .phase-3 .phase-header { background: var(--phase3); }
+        .phase-4 .phase-header { background: var(--phase4); }
+        .phase-content {
+            padding: 0;
+        }
+        .task-row {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .task-row:last-child {
+            border-bottom: none;
+        }
+        .task-row:hover {
+            background-color: #f9f9f9;
+        }
+        .task-checkbox {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+        }
+        .task-text {
+            flex: 1;
+            font-size: 0.95em;
+        }
+        .task-timer {
+            font-family: monospace;
+            font-size: 0.9em;
+            width: 70px;
+            text-align: center;
+            margin: 0 10px;
+            color: #555;
+        }
+        .timer-controls {
+            display: flex;
+            gap: 6px;
+        }
+        .btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-play { background: #4caf50; color: white; }
+        .btn-pause { background: #ff9800; color: white; }
+        .btn-reset { background: #f44336; color: white; }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .deliverables {
+            background: #fff8e1;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 5px solid #ffc107;
+        }
+        .deliverables h3 {
+            margin-top: 0;
+            color: #e65100;
+        }
+        .calendar {
+            margin-top: 30px;
+            background: white;
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .week {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px dashed #ddd;
+        }
+        .week:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .week-header {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 6px;
+        }
+        .week-content {
+            font-size: 0.95em;
+        }
+        .day {
+            margin: 8px 0;
+            padding: 8px;
+            background: #f5f5f5;
+            border-radius: 6px;
+        }
+        .holiday { color: #d32f2f; font-weight: bold; }
+        .milestone {
+            background: #fce4ec;
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: bold;
+            margin-top: 6px;
+            color: #c2185b;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>План курсового проекта: «РобоРесторан»</h1>
+    <div class="subtitle">Курс «Системный аналитик. Advanced» | OTUS</div>
+
+    <!-- Информационная плашка -->
+    <div class="project-info">
+        <p><strong>Тема:</strong> «Автоматизированный ресторан: управление роботами, инвентаризацией и автозаказом»</p>
+        <p><strong>Выбранная подтема:</strong> «Автоматизация роботов + настройка меню и технологических карт» + модуль инвентаризации</p>
+        <p><strong>Платформы:</strong> веб, мобильное приложение, киоск самообслуживания (доп. часть)</p>
+        <p><strong>Основные модули:</strong> меню, заказы, настройка роботов, инвентаризация, автозаказ, оплата</p>
+    </div>
+
+    <div class="period-box">
+        Период реализации: <strong>20 декабря 2025 — 27 января 2026</strong> (6 недель)<br>
+        Дедлайн защиты: <strong>27 января 2026</strong>
+    </div>
+
+    <div class="summary-box">
+        🕒 Общая оценка трудозатрат: <strong>10 440 мин = 174 ч</strong><br>
+        Средняя нагрузка: <strong>~29 ч/неделю</strong> (пн–пт по 5 ч, вс по 4 ч; сб — отдых)<br>
+        ✅ Учтено: выходной 22.12 (зимнее солнцестояние), 21.12 — рабочий, 31.12 и 01.01 — праздничные
+    </div>
+
+    <div class="phases">
+        <!-- ФАЗА 1 -->
+        <div class="phase phase-1">
+            <div class="phase-header">Фаза 1: Исследование и анализ (20.12–30.12)</div>
+            <div class="phase-content">
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t1">
+                    <label for="t1" class="task-text">Выбор темы и описание предметной области (роботы, склад, киоски)</label>
+                    <div class="task-timer" id="timer-1">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(1)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(1)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(1)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t2">
+                    <label for="t2" class="task-text">Карта стейкхолдеров + роли (посетитель, кладовщик, оператор робота)</label>
+                    <div class="task-timer" id="timer-2">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(2)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(2)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(2)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t3">
+                    <label for="t3" class="task-text">Смоделированное интервью (2 роли) + протокол</label>
+                    <div class="task-timer" id="timer-3">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(3)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(3)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(3)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t4">
+                    <label for="t4" class="task-text">Классификация требований: F/NF/бизнес-правила (≥15)</label>
+                    <div class="task-timer" id="timer-4">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(4)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(4)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(4)">↺</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ФАЗА 2 -->
+        <div class="phase phase-2">
+            <div class="phase-header">Фаза 2: Моделирование (31.12–10.01)</div>
+            <div class="phase-content">
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t5">
+                    <label for="t5" class="task-text">BPMN: «Оформление заказа через киоск/робота»</label>
+                    <div class="task-timer" id="timer-5">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(5)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(5)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(5)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t6">
+                    <label for="t6" class="task-text">Use Case + 3 сценария (включая настройку робота)</label>
+                    <div class="task-timer" id="timer-6">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(6)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(6)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(6)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t7">
+                    <label for="t7" class="task-text">User Story Map + ≥15 историй</label>
+                    <div class="task-timer" id="timer-7">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(7)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(7)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(7)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t8">
+                    <label for="t8" class="task-text">UML Class Diagram (Menu, Order, Robot, InventoryItem…)</label>
+                    <div class="task-timer" id="timer-8">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(8)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(8)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(8)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t9">
+                    <label for="t9" class="task-text">DDD: границы контекстов + Ubiquitous Language</label>
+                    <div class="task-timer" id="timer-9">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(9)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(9)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(9)">↺</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ФАЗА 3 -->
+        <div class="phase phase-3">
+            <div class="phase-header">Фаза 3: Архитектура и тех. проработка (11.01–20.01)</div>
+            <div class="phase-content">
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t10">
+                    <label for="t10" class="task-text">C4: Context → Containers (web, MP, kiosk, backend)</label>
+                    <div class="task-timer" id="timer-10">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(10)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(10)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(10)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t11">
+                    <label for="t11" class="task-text">Component Diagram: MenuConfig, RobotController, InventoryEngine…</label>
+                    <div class="task-timer" id="timer-11">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(11)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(11)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(11)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t12">
+                    <label for="t12" class="task-text">Sequence Diagram: «Автозаказ», «Запуск робота»</label>
+                    <div class="task-timer" id="timer-12">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(12)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(12)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(12)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t13">
+                    <label for="t13" class="task-text">OpenAPI: /orders, /menu, /robots/config, /inventory/alerts</label>
+                    <div class="task-timer" id="timer-13">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(13)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(13)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(13)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t14">
+                    <label for="t14" class="task-text">ER-диаграмма + выбор PostgreSQL (обоснование)</label>
+                    <div class="task-timer" id="timer-14">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(14)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(14)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(14)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t15">
+                    <label for="t15" class="task-text">Прототип UI (Figma): экран меню, заказ, админка роботов</label>
+                    <div class="task-timer" id="timer-15">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(15)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(15)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(15)">↺</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ФАЗА 4 -->
+        <div class="phase phase-4">
+            <div class="phase-header">Фаза 4: Подготовка к защите (21.01–26.01)</div>
+            <div class="phase-content">
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t16">
+                    <label for="t16" class="task-text">Acceptance Criteria для ключевых User Story</label>
+                    <div class="task-timer" id="timer-16">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(16)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(16)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(16)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t17">
+                    <label for="t17" class="task-text">Тест-кейсы: оплата, сбой робота, истёкший срок</label>
+                    <div class="task-timer" id="timer-17">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(17)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(17)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(17)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t18">
+                    <label for="t18" class="task-text">Трассировка требований (от User Story → API → БД)</label>
+                    <div class="task-timer" id="timer-18">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(18)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(18)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(18)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t19">
+                    <label for="t19" class="task-text">Компиляция артефактов + проверка по чек-листу OTUS</label>
+                    <div class="task-timer" id="timer-19">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(19)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(19)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(19)">↺</button>
+                    </div>
+                </div>
+                <div class="task-row">
+                    <input type="checkbox" class="task-checkbox" id="t20">
+                    <label for="t20" class="task-text">Презентация (12 слайдов) + репетиция с записью</label>
+                    <div class="task-timer" id="timer-20">00:00</div>
+                    <div class="timer-controls">
+                        <button class="btn btn-play" onclick="startTimer(20)">▶</button>
+                        <button class="btn btn-pause" onclick="pauseTimer(20)">⏸</button>
+                        <button class="btn btn-reset" onclick="resetTimer(20)">↺</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="deliverables">
+        <h3>✅ Обязательные артефакты (MVP для защиты)</h3>
+        <ul>
+            <li>📄 ТЗ (1–2 стр.)</li>
+            <li>📊 BPMN — 1 схема</li>
+            <li>🎭 Use Case + 3 сценария</li>
+            <li>📌 User Story Map + ≥15 историй</li>
+            <li>🧱 UML Class Diagram + DDD</li>
+            <li>🏗 C4 (3 уровня)</li>
+            <li>🔁 2 Sequence Diagram</li>
+            <li>🔌 OpenAPI (Swagger)</li>
+            <li>💾 ER-диаграмма + обоснование PostgreSQL</li>
+            <li>🖥 3 UI-экрана (Figma)</li>
+            <li>✅ Чек-лист + ≥6 тест-кейсов</li>
+            <li>📽 Презентация (12 слайдов)</li>
+        </ul>
+    </div>
+
+    <div class="calendar">
+        <h3>📅 Развернутый календарный план по дням (старт: 20.12.2025)</h3>
+
+        <div class="week">
+            <div class="week-header">Неделя 1 (20–27.12)</div>
+            <div class="week-content">
+                <div class="day"><strong>Сб, 20.12</strong> — День 1 (5.0 ч) — t1(60)+t2(45)+t3(90)+t4(75)+резерв 30 мин</div>
+                <div class="day"><strong>Вс, 21.12</strong> — День 2 (4.0 ч) — t5(90)+t6(75)+t7(60)+резерв 15 мин</div>
+                <div class="day"><span class="holiday">Пн, 22.12 — выходной (зимнее солнцестояние)</span></div>
+                <div class="day"><strong>Вт, 23.12</strong> — День 3 (5.0 ч) — t8(75)+t9(60)+t10(90)+резерв 45 мин</div>
+                <div class="day"><strong>Ср, 24.12</strong> — День 4 (5.0 ч) — t11(75)+t12(60)+t13(90)+резерв 45 мин</div>
+                <div class="day"><strong>Чт, 25.12</strong> — День 5 (5.0 ч) — t14(45)+t15(60)+t16(120)+резерв 75 мин</div>
+                <div class="day"><strong>Пт, 26.12</strong> — День 6 (5.0 ч) — доработка t1-t16, сборка документации</div>
+            </div>
+        </div>
+
+        <div class="week">
+            <div class="week-header">Неделя 2 (27.12–02.01)</div>
+            <div class="week-content">
+                <div class="day"><strong>Сб, 27.12 — суббота — отдых</strong></div>
+                <div class="day"><strong>Вс, 28.12</strong> — День 7 (4.0 ч) — трассировка, проверка покрытия 9 тем</div>
+                <div class="day"><strong>Пн, 29.12</strong> — День 8 (5.0 ч) — презентация: дизайн, сценарий, репетиция</div>
+                <div class="day"><strong>Вт, 30.12</strong> — День 9 (5.0 ч) — резерв: доработка слабых мест, чек-лист OTUS</div>
+                <div class="day"><span class="holiday">Ср, 31.12 — праздничный (Новый год)</span></div>
+                <div class="day"><span class="holiday">Чт, 01.01 — праздничный (Новый год)</span></div>
+                <div class="day"><strong>Пт, 02.01</strong> — День 10 (5.0 ч) — финальная компиляция артефактов, ZIP-архив</div>
+            </div>
+        </div>
+
+        <div class="week">
+            <div class="week-header">Неделя 3 (03–09.01)</div>
+            <div class="week-content">
+                <div class="day"><strong>Сб, 03.01 — суббота — отдых</strong></div>
+                <div class="day"><strong>Вс, 04.01</strong> — День 11 (4.0 ч) — подготовка ответов на вопросы, репетиция</div>
+                <div class="day"><strong>Пн, 05.01</strong> — День 12 (5.0 ч) — t17(75)+t18(60)+t19(120)+t20(120)+резерв 15 мин</div>
+                <div class="day"><strong>Вт, 06.01</strong> — День 13 (5.0 ч) — доработка t17–t20, финальная проверка</div>
+                <div class="day"><strong>Ср, 07.01</strong> — День 14 (5.0 ч) — работа над презентацией, анимации, сценарий</div>
+                <div class="day"><strong>Чт, 08.01</strong> — День 15 (5.0 ч) — репетиция (3 раза), запись</div>
+                <div class="day"><strong>Пт, 09.01</strong> — День 16 (5.0 ч) — резерв: доработка UI, API, DDL</div>
+            </div>
+        </div>
+
+        <div class="week">
+            <div class="week-header">Неделя 4 (10–16.01)</div>
+            <div class="week-content">
+                <div class="day"><strong>Сб, 10.01 — суббота — отдых</strong></div>
+                <div class="day"><strong>Вс, 11.01</strong> — День 17 (4.0 ч) — финальный контроль, упаковка архива, отдых</div>
+                <div class="day"><strong>Пн, 12.01</strong> — День 18 (5.0 ч) — глубокая проработка C4, Component Diagram</div>
+                <div class="day"><strong>Вт, 13.01</strong> — День 19 (5.0 ч) — Sequence Diagram, OpenAPI, ER</div>
+                <div class="day"><strong>Ср, 14.01</strong> — День 20 (5.0 ч) — прототипы UI, связка с API</div>
+                <div class="day"><strong>Чт, 15.01</strong> — День 21 (5.0 ч) — трассировка, Acceptance Criteria</div>
+                <div class="day"><strong>Пт, 16.01</strong> — День 22 (5.0 ч) — тест-кейсы, чек-лист, резерв</div>
+            </div>
+        </div>
+
+        <div class="week">
+            <div class="week-header">Неделя 5 (17–23.01)</div>
+            <div class="week-content">
+                <div class="day"><strong>Сб, 17.01 — суббота — отдых</strong></div>
+                <div class="day"><strong>Вс, 18.01</strong> — День 23 (4.0 ч) — репетиция, финальные правки</div>
+                <div class="day"><strong>Пн, 19.01</strong> — День 24 (5.0 ч) — доработка презентации, сценарий выступления</div>
+                <div class="day"><strong>Вт, 20.01</strong> — День 25 (5.0 ч) — репетиция (запись), отработка вопросов</div>
+                <div class="day"><strong>Ср, 21.01</strong> — День 26 (5.0 ч) — финальная проверка всех артефактов, ZIP</div>
+                <div class="day"><strong>Чт, 22.01</strong> — День 27 (5.0 ч) — подготовка к защите, отдых</div>
+                <div class="day"><strong>Пт, 23.01</strong> — День 28 (5.0 ч) — резервный день (если нужно)</div>
+            </div>
+        </div>
+
+        <div class="week">
+            <div class="week-header">Неделя 6 (24–27.01)</div>
+            <div class="week-content">
+                <div class="day"><strong>Сб, 24.01 — суббота — отдых (буфер)</strong></div>
+                <div class="day"><strong>Вс, 25.01</strong> — День 29 (4.0 ч) — финальная репетиция, сон, отдых</div>
+                <div class="day"><span class="milestone">❗ 26.01 — финальная ревизия до 18:00</span></div>
+                <div class="day"><span class="milestone">🎯 27.01 — защита (с 10:00)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Таймеры и чекбоксы сохраняют состояние в localStorage.<br>
+        Стратегия адаптирована под ваш кейс и расписание. Удачи на защите!
+    </footer>
+
+    <script>
+        // Хранилище состояний таймеров и чекбоксов
+        const timers = {};
+        const intervals = {};
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            // Восстановить чекбоксы
+            document.querySelectorAll('.task-checkbox').forEach(cb => {
+                const saved = localStorage.getItem(`checkbox-${cb.id}`);
+                if (saved === 'true') cb.checked = true;
+                cb.addEventListener('change', () => {
+                    localStorage.setItem(`checkbox-${cb.id}`, cb.checked);
+                });
+            });
+
+            // Восстановить таймеры
+            for (let i = 1; i <= 20; i++) {
+                const saved = localStorage.getItem(`timer-${i}`);
+                if (saved) {
+                    timers[i] = parseInt(saved);
+                    updateTimerDisplay(i);
+                } else {
+                    timers[i] = 0;
+                }
+            }
+        });
+
+        function pad(n) { return n < 10 ? '0' + n : n; }
+
+        function updateTimerDisplay(id) {
+            const mins = Math.floor(timers[id] / 60);
+            const secs = timers[id] % 60;
+            document.getElementById(`timer-${id}`).textContent = `${pad(mins)}:${pad(secs)}`;
+        }
+
+        function startTimer(id) {
+            if (intervals[id]) return;
+            intervals[id] = setInterval(() => {
+                timers[id]++;
+                updateTimerDisplay(id);
+                localStorage.setItem(`timer-${id}`, timers[id]);
+            }, 1000);
+        }
+
+        function pauseTimer(id) {
+            clearInterval(intervals[id]);
+            delete intervals[id];
+        }
+
+        function resetTimer(id) {
+            pauseTimer(id);
+            timers[id] = 0;
+            updateTimerDisplay(id);
+            localStorage.setItem(`timer-${id}`, 0);
+        }
+    </script>
+
+</body></html>
