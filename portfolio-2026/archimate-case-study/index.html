@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArchiMate: архитектурное моделирование интеграции с учётом безопасности</title>
+  <style>
+    :root {
+      --otus-blue: #0052CC;
+      --otus-accent: #FF5630;
+      --otus-bg: #f8f9fa;
+      --otus-text: #202124;
+      --otus-gray: #6c757d;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: var(--otus-text);
+      background-color: var(--otus-bg);
+      padding: 0;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--otus-blue);
+      margin-bottom: 0.75rem;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--otus-gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .meta {
+      font-size: 0.9rem;
+      color: var(--otus-gray);
+      margin-top: 0.5rem;
+    }
+    .section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--otus-blue);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--otus-accent);
+      display: inline-block;
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--otus-text);
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    .highlight {
+      background-color: #e6f0ff;
+      border-left: 4px solid var(--otus-blue);
+      padding: 1rem 1.25rem;
+      border-radius: 0 4px 4px 0;
+      margin: 1.5rem 0;
+    }
+    .diagram {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    .diagram img, .diagram svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+    .diagram-caption {
+      font-size: 0.9rem;
+      color: var(--otus-gray);
+      margin-top: 0.75rem;
+    }
+    .key-point {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .key-point::before {
+      content: '•';
+      color: var(--otus-accent);
+      font-size: 1.4rem;
+      position: absolute;
+      left: 0;
+      top: -0.2rem;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0e0e0;
+      color: var(--otus-gray);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem 1rem; }
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ArchiMate: безопасная интеграция legacy-системы с внешним API</h1>
+      <p class="subtitle">Как архитектурное моделирование помогает выстроить traceability от бизнес-целей к техническим контролям — на примере обработки персональных данных</p>
+      <p class="meta">Валентина Погр · Case study · Март 2026</p>
+    </header>
+
+    <section class="section">
+      <h2>Зачем это сделано</h2>
+      <p>
+        В процессе работы над интеграциями я неоднократно сталкивалась с ситуацией: технические решения (например, шифрование, аудит) воспринимаются командой как «дополнительная нагрузка», а не как логическое следствие бизнес-требований.
+      </p>
+      <p>
+        ArchiMate позволил перевести разговор с уровня «нужно» на уровень «почему нужно» — и визуализировать связи между:
+      </p>
+      <div class="key-point">соблюдением 152-ФЗ</div>
+      <div class="key-point">сохранением доверия клиентов</div>
+      <div class="key-point">выбором mTLS вместо токенов</div>
+      <div class="key-point">структурой логов и метрик</div>
+      <p>
+        Этот кейс — не идеальная модель, а живой эксперимент: как применить enterprise-архитектурный подход в условиях legacy-инфраструктуры и ограниченных ресурсов.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Мотивационный слой: от стратегии к требованиям</h2>
+      <p>
+        Начинаем не с API и баз данных, а с целей бизнеса. В ArchiMate это отражается в <strong>Motivation Layer</strong>.
+      </p>
+      <div class="highlight">
+        Важно: требования к безопасности формулируются не как «надо зашифровать», а как <em>поддержка бизнес-актива</em> — в данном случае, «репутационной ценности бренда».
+      </div>
+
+      <div class="diagram">
+        <!-- Замените на путь к вашей диаграмме -->
+        <img src="../diagrams/archimate-motivation-otus.png" alt="Motivation Viewpoint: связь целей, принципов и требований">
+        <p class="diagram-caption">
+          Motivation Viewpoint: как требование «обеспечить конфиденциальность ПДн» поддерживает бизнес-цель «рост конверсии за счёт доверия»
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Техническая реализация: слои Application и Technology</h2>
+      <p>
+        На следующем этапе требования транслируются в архитектурные компоненты. Здесь ArchiMate помогает:
+      </p>
+      <ul style="padding-left: 1.5rem; margin: 1rem 0;">
+        <li><strong>Избежать «прямых проводов»</strong> — явно выделяя интеграционный шлюз как отдельную зону ответственности.</li>
+        <li><strong>Связать контроли с активами</strong> — например, шифрование payload привязано к потоку «Персональные данные».</li>
+        <li><strong>Сделать видимыми компромиссы</strong> — например, доступность vs. безопасность при выборе синхронного/асинхронного взаимодействия.</li>
+      </ul>
+
+      <div class="diagram">
+        <img src="../diagrams/archimate-tech-layer.png" alt="Technology Layer: интеграционная архитектура с mTLS и аудитом">
+        <p class="diagram-caption">
+          Technology Layer: компоненты, интерфейсы и security controls. Обратите внимание на зону «Интеграционный шлюз» — она изолирует legacy-систему от прямого внешнего доступа.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Что это даёт на практике</h2>
+      <p>
+        Работа с ArchiMate не заменяет техническую экспертизу — но помогает:
+      </p>
+      <div class="key-point">чётко формулировать scope и границы ответственности при согласовании с security-командой</div>
+      <div class="key-point">строить презентации для нетехнических стейкхолдеров без упрощений</div>
+      <div class="key-point">фиксировать архитектурные решения в ADR с визуальной поддержкой</div>
+      <div class="key-point">обосновывать долгосрочные инвестиции (например, в KMS) через бизнес-метрики</div>
+
+      <p>
+        Для меня это стало инструментом не столько «рисования схем», сколько <strong>мышления о системе в целом</strong>.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Дальнейшие шаги</h2>
+      <p>
+        Планирую развивать этот подход в двух направлениях:
+      </p>
+      <div class="key-point">интеграция с SABSA — для более глубокого моделирования security-атрибутов</div>
+      <div class="key-point">автоматизация генерации диаграмм через PlantUML + Archi (open-source)</div>
+      <p>
+        Исходники диаграмм и ADR доступны в этом репозитории — буду рада обратной связи.
+      </p>
+    </section>
+
+    <footer>
+      <p>© 2026 Валентина Погр · <a href="https://valyapogr.github.io/portfolio-2026/" style="color: var(--otus-blue); text-decoration: none;">Портфолио</a></p>
+    </footer>
+  </div>
+</body>
+</html>
